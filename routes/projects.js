@@ -44,7 +44,8 @@ function setProject(req, res, next) {
 
     if (req.project == null) {
         res.status(404)
-        return res.send('Project not found')
+        console.log(projectId);
+        return res.send('Project not found');
     }
     next()
 }
