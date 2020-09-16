@@ -1,31 +1,28 @@
 const express = require('express')
 const app = express()
 const {
-    users,
-    ROLE
-} = require('./data')
-const projectRouter = require('./routes/projects')
-const {
-    authUser,
-    AuthRole
-} = require('./basicAuth');
-app.use(express.json())
-app.use(setUser)
+    users
+} = require('./model/data');
+const projectRouter = require('./routes/projects');
+const session = require('express-session')
+
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}))
+app.use(setUser);
 app.use('/projects', projectRouter)
 
+app.set('view engine', 'ejs');
 
+app.use('/', require('./routes/index'));
 
-app.get('/', (req, res) => {
-    res.send('Home Page')
-})
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true
+}))
 
-app.get('/dashboard', authUser, (req, res) => {
-    res.send('Dashboard Page')
-})
-
-app.get('/admin', authUser, AuthRole(ROLE.ADMIN), (req, res) => {
-    res.send('Admin Page')
-})
 
 function setUser(req, res, next) {
     const userId = req.body.userId
