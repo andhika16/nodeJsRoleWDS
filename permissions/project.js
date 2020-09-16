@@ -1,6 +1,6 @@
 const {
     ROLE
-} = require("../data");
+} = require("../model/data");
 
 
 

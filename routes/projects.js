@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {
     projects
-} = require('../data')
+} = require('../model/data')
 const {
     authUser
 } = require('../basicAuth');

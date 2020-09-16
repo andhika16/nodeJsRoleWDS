@@ -1,6 +1,6 @@
 const {
     users
-} = require('./data');
+} = require('./model/data');
 
 function authUser(req, res, next) {
     const userId = req.body.userId
@@ -9,7 +9,7 @@ function authUser(req, res, next) {
         res.status(404);
         return res.send('You need to sign in')
         // add some ID detection for some user with another id who not registered they're id
-    } else if (!req.user) {
+    } else if (req.user) {
         res.status(403);
         return res.send('Id not detected')
     }
